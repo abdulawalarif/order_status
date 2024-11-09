@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(OrderStatusApp());
+  runApp(const OrderStatusApp());
 }
 
 class OrderStatusApp extends StatelessWidget {
+  const OrderStatusApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,12 +20,15 @@ class OrderStatusApp extends StatelessWidget {
   }
 }
 
- class OrderStatusCard extends StatelessWidget {
+class OrderStatusCard extends StatelessWidget {
   const OrderStatusCard({super.key});
+  final bool isDelivered = false;
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text(
@@ -33,38 +38,54 @@ class OrderStatusApp extends StatelessWidget {
               fontSize: 16,
             ),
           ),
-          SizedBox(height: 4),
-          Divider(color: Colors.yellow, thickness: 2),
-          SizedBox(height: 16),
-          OrderStatusStep(
+          const SizedBox(height: 4),
+          const Divider(color: Colors.yellow, thickness: 2),
+          const SizedBox(height: 16),
+          const OrderStatusStep(
             title: 'Order Received',
             time: '8:30 am, Jan 31, 2017',
             isCompleted: true,
           ),
-          OrderStatusStep(
+          const OrderStatusStep(
             title: 'On The Way',
             time: '10:23 am, Jan 31, 2017',
             isCompleted: true,
             showTracking: true,
           ),
-          OrderStatusStep(
+            OrderStatusStep(
             title: 'Delivered',
-            isCompleted: false,
+            isCompleted: isDelivered,
           ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
-            ),
-            child: Text(
-              'Confirm Delivery',
-              style: TextStyle(fontSize: 16),
-            ),
-          ),
-          SizedBox(height: 20),
-          // Wrap Image in a SizedBox with full width and set fit
+          const SizedBox(height: 20),
+          const SizedBox(height: 20),
           SizedBox(
+            height: 50,
+            width: 200,
+            child: Material(
+              color: Theme.of(context).primaryColor,
+              child: InkWell(
+                onTap: isDelivered
+                    ? () {}
+                    : () {
+                        // sending received status to datbase for this oeder
+                      },
+                child:   Center(
+                  child: Text(
+                    'Confirm Delivery',
+                    style: TextStyle(
+                      color: isDelivered? Colors.white: Colors.white10,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.5,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 100,
             width: double.infinity,
             child: Image.asset(
               'assets/order.png',
@@ -72,10 +93,10 @@ class OrderStatusApp extends StatelessWidget {
             ),
           ),
         ],
-      );
+      ),
+    );
   }
 }
-
 
 class OrderStatusStep extends StatelessWidget {
   final String title;
@@ -83,7 +104,8 @@ class OrderStatusStep extends StatelessWidget {
   final bool isCompleted;
   final bool showTracking;
 
-  OrderStatusStep({
+  const OrderStatusStep({
+    super.key,
     required this.title,
     this.time,
     required this.isCompleted,
@@ -99,7 +121,7 @@ class OrderStatusStep extends StatelessWidget {
           isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
           color: isCompleted ? Colors.redAccent : Colors.grey,
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,23 +134,23 @@ class OrderStatusStep extends StatelessWidget {
                 ),
               ),
               if (time != null) ...[
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   children: [
                     Text(
                       time!,
-                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
                     ),
                     if (showTracking)
                       Container(
-                        margin: EdgeInsets.only(left: 8),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                        margin: const EdgeInsets.only(left: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
                         decoration: BoxDecoration(
                           color: Colors.yellow,
                           borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Tracking',
                           style: TextStyle(
                             color: Colors.black,
@@ -140,7 +162,7 @@ class OrderStatusStep extends StatelessWidget {
                   ],
                 ),
               ],
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             ],
           ),
         ),
