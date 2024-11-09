@@ -6,8 +6,8 @@
 
 ## Features
 * **Checking order's from user's app:**  
-* **CDynamic Delivery Confirmation:** 
-* **CCustomizable UI Elements:** 
+* **Dynamic Delivery Confirmation:** 
+* **Customizable UI Elements:** 
 
 ## File stracture
 
