@@ -14,17 +14,16 @@
     
     ├── lib
         ├── main.dart                  
+        ├── order_status.dart   
         ├── order_status_card.dart   
-        ├── order_status_step.dart   
+        ├── order_model.dart
  
   - main.dart: Contains the OrderStatusApp root widget and main function to run the app.
   - order_status_card.dart: Defines the main structure of the order tracking card, including progress steps and the confirm delivery button.
-  - order_status_step.dart: Manages individual step details, including title, timestamp, and status indicators.
+  - order_status.dart: Manages individual step details, including title, timestamp, and status indicators.
  
 <p float="left">
- <img src="demo/two.jpg" width="25%" alt="Another demo of this application" />
- <img src="demo/one.jpg" width="25%" alt="Demo of this application" />
-</p>
+ <img src="demo/1.jpg" width="23%" alt="Pending status" /><img src="demo/2.jpg" width="23%" alt="Demo of Received status" /><img src="demo/3.jpg" width="23%" alt="Demo of Confirmed status" /><img src="demo/4.jpg" width="23%" alt="Demo of Delivered status" /></p>
 
  
 
