@@ -1,81 +1,87 @@
 import 'package:flutter/material.dart';
 
-import ' order_status_step.dart';
-
 class OrderStatusCard extends StatelessWidget {
-  const OrderStatusCard({super.key});
-  final bool isDelivered = false;
+  final String title;
+  final String? time;
+  final bool isCompleted;
+  final bool showTracking;
+//  final bool isLast;
+
+  const OrderStatusCard({
+    super.key,
+    required this.title,
+    this.time,
+    required this.isCompleted,
+    this.showTracking = false,
+    //required this.isLast,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'ORDER STATUS',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
+    final theme = Theme.of(context);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            Icon(
+              isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
+              color: isCompleted
+                  ? theme.primaryColor
+                  : theme.unselectedWidgetColor,
             ),
-          ),
-          const SizedBox(height: 4),
-          const Divider(color: Colors.yellow, thickness: 2),
-          const SizedBox(height: 16),
-          const OrderStatusStep(
-            title: 'Order Received',
-            time: '8:30 am, Jan 31, 2017',
-            isCompleted: true,
-          ),
-          const OrderStatusStep(
-            title: 'On The Way',
-            time: '10:23 am, Jan 31, 2017',
-            isCompleted: true,
-            showTracking: true,
-          ),
-          OrderStatusStep(
-            title: 'Delivered',
-            isCompleted: isDelivered,
-          ),
-          const SizedBox(height: 20),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 50,
-            width: 200,
-            child: Material(
-              color: Theme.of(context).primaryColor,
-              child: InkWell(
-                onTap: isDelivered
-                    ? () {}
-                    : () {
-                        // sending received status to datbase for this oeder
-                      },
-                child: Center(
-                  child: Text(
-                    'Confirm Delivery',
-                    style: TextStyle(
-                      color: isDelivered ? Colors.white : Colors.white10,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
+            if (title != 'Delivered')
+              Container(
+                width: 2,
+                height: 30,
+                color: theme.unselectedWidgetColor,
+              ),
+          ],
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: theme.textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: isCompleted
+                      ? theme.textTheme.bodyLarge!.color
+                      : theme.unselectedWidgetColor,
                 ),
               ),
-            ),
+              if (time != null) ...[
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Text(
+                      time!,
+                      style: theme.textTheme.bodySmall!
+                          .copyWith(color: theme.colorScheme.tertiary),
+                    ),
+                    if (showTracking)
+                      Container(
+                        margin: const EdgeInsets.only(left: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 6, vertical: 2),
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.secondary,
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Text('Tracking',
+                            style: theme.textTheme.labelSmall
+                                ?.copyWith(color: Colors.white)),
+                      ),
+                  ],
+                ),
+              ],
+              const SizedBox(height: 16),
+            ],
           ),
-          const SizedBox(height: 20),
-          SizedBox(
-            height: 100,
-            width: double.infinity,
-            child: Image.asset(
-              'assets/order.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

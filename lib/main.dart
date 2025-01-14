@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'order_status_card.dart';
+import 'package:order_status/%20order_status.dart';
 
 void main() {
   runApp(const OrderStatusApp());
@@ -14,7 +14,7 @@ class OrderStatusApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.grey[200],
         body: const Center(
-          child: OrderStatusCard(),
+          child: OrderStatus(),
         ),
       ),
     );
